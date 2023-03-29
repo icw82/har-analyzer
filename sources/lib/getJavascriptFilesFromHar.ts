@@ -31,11 +31,13 @@ const getJavascriptFilesFromHar = (har: Har): JavascriptFile[] => {
             }
         }
 
+        // TODO: Опциональная очистка путей
         const file = new JavascriptFile({
             initiator: item._initiator as unknown as IInitiator,
             url: item.request.url
                 ?.replace(/^https?:\/\/.*?\//, '')
                 // ?.replace(/https:\/\/.*\/static\/resources\//, '')
+                ?.replace(/^resources\//, '')
                 ?.replace(/^static\/resources\//, '')
                 ?.replace(/\?.*$/, ''),
             content,
